@@ -1,4 +1,6 @@
 import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
 # plt method with str
 
 type_plot = 'plot'
@@ -10,8 +12,6 @@ plt.text(3,4,"Texto")
 x = [1,2,3]
 y = [12,4,4]
 
-exec(to_execute)
-plt.savefig("done.png")
 
 
 
@@ -22,4 +22,16 @@ def test(*args, **kwargs):
     print(kwargs['x'])
 
 
-test("hola", x = 'hola2')
+# df_creation 
+def iris_values(*args,**kwargs):
+    df = sns.load_dataset('iris')
+
+    df_to_return = pd.DataFrame([df['sepal_length'] , df['petal_length']]).T
+    
+    plt.scatter(df_to_return['sepal_length'], df['petal_length'])
+    plt.savefig("plot.png")
+    return df_to_return
+
+
+
+iris_values()

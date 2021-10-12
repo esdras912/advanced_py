@@ -15,11 +15,9 @@ def graph_this(func):
         title = kwargs['title']
 
 
-        x_values = plot_info[0]
-        y_values = plot_info[1]
-        
+                
 
-        PLOT_LINE_CODE = f'plt.{plot_type}(x_values, y_values)'
+        PLOT_LINE_CODE = f"{kwargs['module']}.{plot_type}(plot_info['{kwargs['x_df_name']}'],plot_info['{kwargs['y_df_name']}'])"
 
         exec(PLOT_LINE_CODE)
         plt.title(title)
@@ -36,11 +34,12 @@ def iris_values(*args,**kwargs):
     df = sns.load_dataset('iris')
 
     df_to_return = pd.DataFrame([df['sepal_length'] , df['petal_length']])
-    return [list(df['sepal_length']), list(df['petal_length'])]
+    return df_to_return.T
 
 
 
-iris_values(type = 'scatter', title = 'Iris_Data_Set')
+iris_values(module = 'sns',type = 'scatterplot', title = 'Iris_Data_Set', x_df_name = 'sepal_length', 
+            y_df_name = 'petal_length')
 
 
 
